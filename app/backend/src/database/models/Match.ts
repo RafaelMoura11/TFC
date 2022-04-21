@@ -8,7 +8,7 @@ class Match extends Model {
 }
 
 Match.init({
-  id: { type: DataTypes.INTEGER, primaryKey: true },
+  id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   home_team: { type: DataTypes.INTEGER, allowNull: false },
   home_team_goals: { type: DataTypes.INTEGER, allowNull: false },
   away_team: { type: DataTypes.INTEGER, allowNull: false },
