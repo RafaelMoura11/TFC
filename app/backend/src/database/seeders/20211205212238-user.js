@@ -5,7 +5,7 @@ module.exports = {
      *
      * Example:
      */
-    await queryInterface.bulkInsert('users', [
+    await queryInterface.bulkInsert('Users', [
       {
         username: 'Admin',
         role: 'admin',
@@ -27,6 +27,6 @@ module.exports = {
      *
      * Example:
      */
-    await queryInterface.bulkDelete('users', null, {});
+    await queryInterface.bulkDelete('Users', null, {});
   },
 };
