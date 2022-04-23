@@ -1,13 +1,13 @@
 import * as sinon from 'sinon';
 import * as chai from 'chai';
-import chaiHttp = require('chai-http');
+// import chaiHttp from 'chai-http';
 
 import { app } from '../app';
 import Example from '../database/models/ExampleModel';
 
 import { Response } from 'superagent';
 
-chai.use(chaiHttp);
+//chai.use(chaiHttp);
 
 const { expect } = chai;
 
