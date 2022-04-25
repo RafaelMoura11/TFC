@@ -17,7 +17,7 @@ export default class LoginValidation {
         { status: 400, message: 'Email inválido' },
       );
     }
-    const result = await User.findOne({ where: email });
+    const result = await User.findOne({ where: { email } });
     if (!result) return next({ status: 404, message: 'Email e/ou senha incorreto(s)' });
     req.body.user = result;
     return next();
@@ -29,6 +29,7 @@ export default class LoginValidation {
     next: express.NextFunction,
   ) {
     const { password, user: { password: rightPassword } } = req.body;
+    console.log('oi');
     if (!password) return next({ status: 400, message: 'O campo password é obrigatório' });
     if (password !== rightPassword) {
       return next(
