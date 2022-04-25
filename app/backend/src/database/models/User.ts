@@ -22,7 +22,7 @@ User.init({
 }, {
   underscored: true,
   timestamps: false,
-  tableName: 'Users',
+  tableName: 'users',
   sequelize: db,
   modelName: 'User',
 });
