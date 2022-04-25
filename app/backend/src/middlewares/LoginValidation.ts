@@ -11,14 +11,17 @@ export default class LoginValidation {
     next: express.NextFunction,
   ) {
     const { email } = req.body;
-    if (!email) return next({ status: 400, message: 'O campo email é obrigatório' });
+    if (!email) return next({ status: 400, message: 'All fields must be filled' });
     if (!emailRegex.test(email)) {
       return next(
-        { status: 400, message: 'Email inválido' },
+        { status: 401, message: 'Incorrect email or password' },
       );
     }
-    const result = await User.findOne({ where: { email } });
-    if (!result) return next({ status: 404, message: 'Email e/ou senha incorreto(s)' });
+    const result = await User.findOne(
+      { where: { email } },
+    );
+    if (!result) return next({ status: 401, message: 'Incorrect email or password' });
+    console.log(result.password);
     req.body.user = result;
     return next();
   }
@@ -28,14 +31,14 @@ export default class LoginValidation {
     _res: express.Response,
     next: express.NextFunction,
   ) {
-    const { password, user: { password: rightPassword } } = req.body;
-    console.log('oi');
-    if (!password) return next({ status: 400, message: 'O campo password é obrigatório' });
+    const { password, user: { dataValues: { password: rightPassword, ...user } } } = req.body;
+    if (!password) return next({ status: 400, message: 'All fields must be filled' });
     if (password !== rightPassword) {
       return next(
-        { status: 400, message: 'Email e/ou senha incorreto(s)' },
+        { status: 401, message: 'Incorrect email or password"' },
       );
     }
+    req.body.user = user;
     return next();
   }
 }
