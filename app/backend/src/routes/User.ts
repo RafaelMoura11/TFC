@@ -1,16 +1,16 @@
 import express = require('express');
 import LoginValidation from '../middlewares/LoginValidation';
-import LoginController from '../controllers/User';
+import UserController from '../controllers/User';
 
-const loginRouter = express.Router();
+const userRouter = express.Router();
 
-loginRouter.post(
+userRouter.post(
   '/',
   LoginValidation.emailValidation,
 
   LoginValidation.passwordValidation,
 
-  LoginController.login,
+  UserController.login,
 );
 
-export default loginRouter;
+export default userRouter;
