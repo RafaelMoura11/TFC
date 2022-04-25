@@ -1,10 +1,15 @@
-import { Request, Response, NextFunction } from 'express';
+// import { Request, Response, NextFunction } from 'express';
+import express = require('express');
 import User from '../database/models/User';
 
 const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
 export default class LoginValidation {
-  static async emailValidation(req: Request, _res: Response, next: NextFunction) {
+  static async emailValidation(
+    req: express.Request,
+    _res: express.Response,
+    next: express.NextFunction,
+  ) {
     const { email } = req.body;
     if (!email) return next({ status: 400, message: 'O campo email é obrigatório' });
     if (!emailRegex.test(email)) {
@@ -18,7 +23,11 @@ export default class LoginValidation {
     return next();
   }
 
-  static async passwordValidation(req: Request, _res: Response, next: NextFunction) {
+  static async passwordValidation(
+    req: express.Request,
+    _res: express.Response,
+    next: express.NextFunction,
+  ) {
     const { password, user: { password: rightPassword } } = req.body;
     if (!password) return next({ status: 400, message: 'O campo password é obrigatório' });
     if (password !== rightPassword) {
