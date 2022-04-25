@@ -6,7 +6,7 @@ module.exports = {
      * Example:
      */
     await queryInterface.bulkInsert(
-      'Teams',
+      'teams',
       [
         {
           team_name: 'Avaí/Kindermann',
@@ -67,6 +67,6 @@ module.exports = {
      *
      * Example:
      */
-    await queryInterface.bulkDelete('Teams', null, {});
+    await queryInterface.bulkDelete('teams', null, {});
   },
 };
