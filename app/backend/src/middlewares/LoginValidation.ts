@@ -1,5 +1,6 @@
 // import { Request, Response, NextFunction } from 'express';
 import express = require('express');
+import bcrypt = require('bcryptjs');
 import User from '../database/models/User';
 
 const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
@@ -33,7 +34,8 @@ export default class LoginValidation {
   ) {
     const { password, user: { dataValues: { password: rightPassword, ...user } } } = req.body;
     if (!password) return next({ status: 400, message: 'All fields must be filled' });
-    if (password !== rightPassword) {
+    const compare = bcrypt.compareSync(password, rightPassword);
+    if (!compare) {
       return next(
         { status: 401, message: 'Incorrect email or password"' },
       );
