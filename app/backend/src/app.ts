@@ -1,5 +1,5 @@
 import * as express from 'express';
-import { Router } from 'express';
+import { Router, ErrorRequestHandler } from 'express';
 
 class App {
   public app: express.Express;
@@ -8,6 +8,7 @@ class App {
   constructor() {
     // ...
     this.app = express();
+    this.app.use(express.json());
     this.config();
   }
 
@@ -28,8 +29,11 @@ class App {
     this.app.listen(PORT);
   }
 
-  public use(routeName: string, route: Router): void {
-    this.app.use(routeName, route);
+  public use(route: Router | ErrorRequestHandler, routeName?: string): void {
+    if (routeName) {
+      this.app.use(routeName, route);
+    }
+    this.app.use(route);
   }
 }
 
