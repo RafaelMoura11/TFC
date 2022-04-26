@@ -2,6 +2,8 @@
 import express = require('express');
 import bcrypt = require('bcryptjs');
 import User from '../database/models/User';
+import JWTUtils from '../utils/jwt';
+// import Login from '../interfaces/Login';
 
 const emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
@@ -22,7 +24,6 @@ export default class LoginValidation {
       { where: { email } },
     );
     if (!result) return next({ status: 401, message: 'Incorrect email or password' });
-    console.log(result.password);
     req.body.user = result;
     return next();
   }
@@ -42,5 +43,19 @@ export default class LoginValidation {
     }
     req.body.user = user;
     return next();
+  }
+
+  static async jwtValidation(
+    req: express.Request,
+    _res: express.Response,
+    next: express.NextFunction,
+  ) {
+    const token = req.headers.authorization;
+    try {
+      const userLogin = JWTUtils.verify(token as string);
+      req.body.user = userLogin;
+    } catch (e) {
+      next({ status: 401, message: 'You are not authorized' });
+    }
   }
 }
