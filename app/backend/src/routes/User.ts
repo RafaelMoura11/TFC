@@ -13,4 +13,11 @@ userRouter.post(
   UserController.login,
 );
 
+userRouter.get(
+  '/validate',
+  LoginValidation.jwtValidation,
+
+  UserController.userRole,
+);
+
 export default userRouter;
