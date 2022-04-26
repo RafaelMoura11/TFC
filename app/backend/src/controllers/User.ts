@@ -9,7 +9,7 @@ export default class UserController {
   }
 
   static async userRole(req: Request, res: Response): Promise<Response> {
-    const role = UserService.getRole(req.body.user as Login);
+    const role = await UserService.getRole(req.body.user as Login);
     return res.status(200).send(role);
   }
 }

@@ -54,6 +54,7 @@ export default class LoginValidation {
     try {
       const userLogin = JWTUtils.verify(token as string);
       req.body.user = userLogin;
+      next();
     } catch (e) {
       next({ status: 401, message: 'You are not authorized' });
     }

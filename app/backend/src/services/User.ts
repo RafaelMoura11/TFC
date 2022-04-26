@@ -9,7 +9,9 @@ export default class UserService {
   }
 
   static async getRole(user: Login) {
-    const role = await User.findOne({ attributes: ['role'], where: { email: user.email } });
-    return role;
+    const result = await User.findOne({ attributes: ['role'], where: { email: user.email } });
+    if (result) {
+      return result.role;
+    }
   }
 }
