@@ -1,12 +1,15 @@
-import jwt = require('jsonwebtoken');
-import fs = require('fs');
+import User from '../database/models/User';
 import Login from '../interfaces/Login';
-
-const SECRET = fs.readFileSync('jwt.evaluation.key').toString('utf8');
+import JWTUtils from '../utils/jwt';
 
 export default class UserService {
   static login(data: Login): string {
-    const token = jwt.sign({ ...data }, SECRET, { expiresIn: '7d', algorithm: 'HS256' });
+    const token = JWTUtils.sign(data);
     return token;
+  }
+
+  static async getRole(user: Login) {
+    const role = await User.findOne({ attributes: ['role'], where: { email: user.email } });
+    return role;
   }
 }
