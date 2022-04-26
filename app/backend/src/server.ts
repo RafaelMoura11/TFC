@@ -9,6 +9,7 @@ const app = new App();
 
 app.use(Routers.userRouter, '/login');
 app.use(Routers.teamRouter, '/teams');
+app.use(Routers.matchRouter, '/matches');
 
 app.use(errorHandler);
 
