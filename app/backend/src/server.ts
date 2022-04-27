@@ -8,8 +8,8 @@ const PORT = process.env.PORT || 3001;
 const app = new App();
 
 app.use(Routers.userRouter, '/login');
-app.use(Routers.teamRouter, '/teams');
 app.use(Routers.matchRouter, '/matches');
+app.use(Routers.teamRouter, '/teams');
 
 app.use(errorHandler);
 
