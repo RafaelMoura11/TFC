@@ -22,4 +22,6 @@ export default class MatchService {
     const createdMatch = await Match.create(newMatch);
     return createdMatch;
   };
+
+  static finishMatch = async (id: string) => Match.update({ inProgress: false }, { where: { id } });
 }
