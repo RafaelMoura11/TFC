@@ -1,5 +1,6 @@
 import Team from '../database/models/Team';
 import Match from '../database/models/Match';
+import MatchBody from '../interfaces/Match';
 
 export default class MatchService {
   static getMatches = () => Match.findAll({
@@ -16,4 +17,9 @@ export default class MatchService {
     ],
     where: { inProgress: true },
   });
+
+  static createNewMatch = async (newMatch: MatchBody) => {
+    const createdMatch = await Match.create(newMatch);
+    return createdMatch;
+  };
 }
