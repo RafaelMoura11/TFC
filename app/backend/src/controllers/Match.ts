@@ -4,8 +4,9 @@ import MatchBody from '../interfaces/Match';
 
 export default class MatchController {
   static async getMatches(req: Request, res: Response): Promise<Response> {
-    if (req.query.inProgress === 'true') {
-      const matchesInProgress = await MatchService.getMatchesInProgress();
+    if (req.query.inProgress) {
+      const isInProgressTrue = req.query.inProgress === 'true';
+      const matchesInProgress = await MatchService.getMatchesByInProgress(isInProgressTrue);
       return res.status(200).json(matchesInProgress);
     }
     const matches = await MatchService.getMatches();

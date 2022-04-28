@@ -10,12 +10,12 @@ export default class MatchService {
     ],
   });
 
-  static getMatchesInProgress = () => Match.findAll({
+  static getMatchesByInProgress = (inProgress: boolean) => Match.findAll({
     include: [
       { model: Team, as: 'teamHome', attributes: { exclude: ['id'] } },
       { model: Team, as: 'teamAway', attributes: { exclude: ['id'] } },
     ],
-    where: { inProgress: true },
+    where: { inProgress },
   });
 
   static createNewMatch = async (newMatch: MatchBody) => {
