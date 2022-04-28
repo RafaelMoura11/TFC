@@ -3,6 +3,6 @@ import MatchController from '../controllers/Match';
 
 const matchRouter = express.Router();
 
-matchRouter.get('/', MatchController.getMatches);
+matchRouter.get('/:inProgress', MatchController.getMatches);
 
 export default matchRouter;
