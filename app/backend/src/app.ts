@@ -1,15 +1,20 @@
 import * as express from 'express';
-import { Router, ErrorRequestHandler } from 'express';
+// import { Router, ErrorRequestHandler } from 'express';
+import Routers from './routes';
+import errorHandler from './middlewares/Error';
 
 class App {
   public app: express.Express;
   // ...
 
   constructor() {
-    // ...
     this.app = express();
     this.app.use(express.json());
     this.config();
+    this.app.use('/teams', Routers.teamRouter);
+    this.app.use('/matches', Routers.matchRouter);
+    this.app.use('/login', Routers.userRouter);
+    this.app.use(errorHandler);
   }
 
   private config():void {
@@ -29,12 +34,12 @@ class App {
     this.app.listen(PORT);
   }
 
-  public use(route: Router | ErrorRequestHandler, routeName?: string): void {
-    if (routeName) {
-      this.app.use(routeName, route);
-    }
-    this.app.use(route);
-  }
+  // public use(route: Router | ErrorRequestHandler, routeName?: string): void {
+  //   if (routeName) {
+  //     this.app.use(routeName, route);
+  //   }
+  //   this.app.use(route);
+  // }
 }
 
 export { App };
