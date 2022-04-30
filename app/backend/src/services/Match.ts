@@ -18,8 +18,15 @@ export default class MatchService {
     where: { inProgress },
   });
 
-  static createNewMatch = async (newMatch: MatchBody) => {
-    const createdMatch = await Match.create(newMatch);
+  static createNewMatch = async ({ homeTeam,
+    homeTeamGoals, awayTeam, awayTeamGoals, inProgress }: MatchBody) => {
+    const createdMatch = await Match.create({
+      homeTeam,
+      homeTeamGoals,
+      awayTeam,
+      awayTeamGoals,
+      inProgress,
+    });
     return createdMatch;
   };
 

@@ -1,5 +1,5 @@
 export default interface MatchBody {
-  id?: number;
+  inProgress: boolean;
   homeTeam: number;
   awayTeam: number;
   homeTeamGoals: number;
