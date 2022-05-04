@@ -1,6 +1,7 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import MatchService from '../services/Match';
 import MatchBody from '../interfaces/Match';
+import TeamService from '../services/Team';
 
 export default class MatchController {
   static async getMatches(_req: Request, res: Response): Promise<Response> {
@@ -14,17 +15,23 @@ export default class MatchController {
     return res.status(200).json(matchesInProgress);
   }
 
-  static async createNewMatch(req: Request, res: Response):
+  private static checkIfTeamExists = async (id: string) => TeamService.getTeamById(id);
+
+  static async createNewMatch(req: Request, res: Response, next: NextFunction):
   Promise<Response | void> {
     const newMatch = req.body as MatchBody;
-    console.log(newMatch);
+    const homeTeam = await MatchController.checkIfTeamExists(newMatch.homeTeam.toString());
+    const awayTeam = await MatchController.checkIfTeamExists(newMatch.awayTeam.toString());
+    if (!homeTeam || !awayTeam) {
+      return next({
+        status: 404, message: 'There is no team with such id!' });
+    }
     const createdMatch = await MatchService.createNewMatch(newMatch);
     return res.status(200).json(createdMatch);
   }
 
   static async finishMatch(req: Request, res: Response): Promise<Response> {
     const { id } = req.params;
-    console.log(req.body);
     await MatchService.finishMatch(id);
     return res.status(200).json('Game Over!');
   }
