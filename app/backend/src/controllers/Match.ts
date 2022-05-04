@@ -40,6 +40,6 @@ export default class MatchController {
     const { id } = req.params;
     const goals = req.body;
     await MatchService.updateScoreboard({ id, ...goals } as ScoreboardGoals);
-    return res.status(201).json('Scoreboard updated!');
+    return res.status(200).json('Scoreboard updated!');
   }
 }

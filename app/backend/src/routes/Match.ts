@@ -17,6 +17,7 @@ matchRouter.patch(
 
   MatchController.updateScoreboard,
 );
+
 matchRouter.patch('/:id/finish', MatchController.finishMatch);
 
 export default matchRouter;
