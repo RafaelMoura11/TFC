@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import MatchService from '../services/Match';
-import MatchBody from '../interfaces/Match';
+import MatchBody, { ScoreboardGoals } from '../interfaces/Match';
 import TeamService from '../services/Team';
 
 export default class MatchController {
@@ -34,5 +34,12 @@ export default class MatchController {
     const { id } = req.params;
     await MatchService.finishMatch(id);
     return res.status(200).json('Game Over!');
+  }
+
+  static async updateScoreboard(req: Request, res: Response): Promise<Response> {
+    const { id } = req.params;
+    const goals = req.body;
+    await MatchService.updateScoreboard({ id, ...goals } as ScoreboardGoals);
+    return res.status(201).json('Scoreboard updated!');
   }
 }

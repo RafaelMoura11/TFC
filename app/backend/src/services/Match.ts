@@ -1,6 +1,6 @@
 import Team from '../database/models/Team';
 import Match from '../database/models/Match';
-import MatchBody from '../interfaces/Match';
+import MatchBody, { ScoreboardGoals } from '../interfaces/Match';
 
 export default class MatchService {
   static getMatches = () => Match.findAll({
@@ -31,4 +31,10 @@ export default class MatchService {
   };
 
   static finishMatch = async (id: string) => Match.update({ inProgress: false }, { where: { id } });
+
+  static updateScoreboard = async ({
+    id,
+    homeTeamGoals,
+    awayTeamGoals,
+  }: ScoreboardGoals) => Match.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
 }

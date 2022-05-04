@@ -6,8 +6,17 @@ import isTheSameTeam from '../middlewares/NewMatch';
 const matchRouter = express.Router();
 
 matchRouter.get('/:inProgress', MatchController.getMatchesByInProgress);
+
 matchRouter.get('/', MatchController.getMatches);
+
 matchRouter.post('/', LoginValidation.jwtValidation, isTheSameTeam, MatchController.createNewMatch);
+
+matchRouter.patch(
+  '/:id',
+  LoginValidation.jwtValidation,
+
+  MatchController.updateScoreboard,
+);
 matchRouter.patch('/:id/finish', MatchController.finishMatch);
 
 export default matchRouter;
