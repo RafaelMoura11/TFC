@@ -27,7 +27,7 @@ export default class MatchController {
         status: 404, message: 'There is no team with such id!' });
     }
     const createdMatch = await MatchService.createNewMatch(newMatch);
-    return res.status(200).json(createdMatch);
+    return res.status(201).json(createdMatch);
   }
 
   static async finishMatch(req: Request, res: Response): Promise<Response> {
