@@ -59,6 +59,7 @@ const goalMapper = (gp: number, gc: number) => ({
 const filterByType = (team: Team) => ({
   home: (match: MatchBody) => match.homeTeam === team.id,
   away: (match: MatchBody) => match.awayTeam === team.id,
+  all: (match: MatchBody) => match.homeTeam === team.id || match.awayTeam === team.id,
 });
 
 const ScoreBoard = (teams: Team[], matches: MatchBody[], filterType: FilterType) => (

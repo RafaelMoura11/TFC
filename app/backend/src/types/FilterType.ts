@@ -1,3 +1,3 @@
-type FilterType = 'home' | 'away';
+type FilterType = 'home' | 'away' | 'all';
 
 export default FilterType;

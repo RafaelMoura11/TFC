@@ -3,6 +3,7 @@ import MatchController from '../controllers/Match';
 
 const leaderBoardRouter = express.Router();
 
+leaderBoardRouter.get('/', MatchController.getLeaderBoard);
 leaderBoardRouter.get('/home', MatchController.getLeaderBoardHome);
 leaderBoardRouter.get('/away', MatchController.getLeaderBoardAway);
 
