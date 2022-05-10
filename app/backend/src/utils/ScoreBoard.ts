@@ -1,5 +1,6 @@
 import Team from '../interfaces/Team';
 import MatchBody from '../interfaces/Match';
+import FilterType from '../types/FilterType';
 
 const totalVictoriesMapper = (id: number, matches: MatchBody[]) => (
   matches.reduce((acc, cur) => {
@@ -55,13 +56,19 @@ const goalMapper = (gp: number, gc: number) => ({
   goalsBalance: gp - gc,
 });
 
-const ScoreBoard = (teams: Team[], matches: MatchBody[]) => (
+const filterByType = (team: Team) => ({
+  home: (match: MatchBody) => match.homeTeam === team.id,
+  away: (match: MatchBody) => match.awayTeam === team.id,
+});
+
+const ScoreBoard = (teams: Team[], matches: MatchBody[], filterType: FilterType) => (
   teams.map((team) => {
-    const totalVictories = totalVictoriesMapper(team.id, matches);
-    const totalDraws = totalDrawsMapper(team.id, matches);
-    const totalLosses = totalLossesMapper(team.id, matches);
-    const goalsFavor = goalsFavorMapper(team.id, matches);
-    const goalsOwn = goalsOwnMapper(team.id, matches);
+    const matchesInHome = matches.filter(filterByType(team)[filterType]);
+    const totalVictories = totalVictoriesMapper(team.id, matchesInHome);
+    const totalDraws = totalDrawsMapper(team.id, matchesInHome);
+    const totalLosses = totalLossesMapper(team.id, matchesInHome);
+    const goalsFavor = goalsFavorMapper(team.id, matchesInHome);
+    const goalsOwn = goalsOwnMapper(team.id, matchesInHome);
     const totalObject = totalMapper(totalVictories, totalDraws, totalLosses);
     const goalsObject = goalMapper(goalsFavor, goalsOwn);
     const efficiency = ((totalObject.totalPoints / (totalObject.totalGames * 3)) * 100).toFixed(2);

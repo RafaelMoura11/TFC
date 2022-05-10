@@ -44,7 +44,7 @@ export default class MatchController {
   }
 
   static async getLeaderBoard(_req: Request, res: Response): Promise<Response> {
-    const LeaderBoard = await MatchService.getLeaderBoard();
+    const LeaderBoard = await MatchService.getLeaderBoard('home');
     return res.status(200).json(LeaderBoard);
   }
 }

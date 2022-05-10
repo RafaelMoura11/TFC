@@ -3,6 +3,7 @@ import Match from '../database/models/Match';
 import MatchBody, { ScoreboardGoals } from '../interfaces/Match';
 import TeamService from './Team';
 import ScoreBoard from '../utils/ScoreBoard';
+import FilterType from '../types/FilterType';
 
 export default class MatchService {
   static getMatches = () => Match.findAll({
@@ -40,11 +41,11 @@ export default class MatchService {
     awayTeamGoals,
   }: ScoreboardGoals) => Match.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
 
-  static getLeaderBoard = async () => {
+  static getLeaderBoard = async (filterType: FilterType) => {
     const matches = await MatchService.getMatches();
     const finishedMatches = matches.filter((match) => !match.inProgress);
     const teams = await TeamService.getTeams();
-    const leaderBoardMapper = ScoreBoard(teams, finishedMatches);
+    const leaderBoardMapper = ScoreBoard(teams, finishedMatches, filterType);
     return leaderBoardMapper.sort((a, b) => {
       if (b.totalPoints === a.totalPoints && b.goalsBalance === a.goalsBalance) {
         return b.goalsFavor - a.goalsFavor;
