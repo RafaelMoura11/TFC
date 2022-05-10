@@ -14,6 +14,7 @@ class App {
     this.app.use('/teams', Routers.teamRouter);
     this.app.use('/matches', Routers.matchRouter);
     this.app.use('/login', Routers.userRouter);
+    this.app.use('/leaderboard', Routers.leaderBoardRouter);
     this.app.use(errorHandler);
   }
 
