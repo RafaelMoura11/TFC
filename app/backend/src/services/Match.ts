@@ -41,7 +41,7 @@ export default class MatchService {
     awayTeamGoals,
   }: ScoreboardGoals) => Match.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
 
-  static getLeaderBoard = async (filterType: FilterType) => {
+  static getLeaderBoardHome = async (filterType: FilterType) => {
     const matches = await MatchService.getMatches();
     const finishedMatches = matches.filter((match) => !match.inProgress);
     const teams = await TeamService.getTeams();

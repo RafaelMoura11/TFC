@@ -43,8 +43,8 @@ export default class MatchController {
     return res.status(200).json('Scoreboard updated!');
   }
 
-  static async getLeaderBoard(_req: Request, res: Response): Promise<Response> {
-    const LeaderBoard = await MatchService.getLeaderBoard('home');
+  static async getLeaderBoardHome(_req: Request, res: Response): Promise<Response> {
+    const LeaderBoard = await MatchService.getLeaderBoardHome('home');
     return res.status(200).json(LeaderBoard);
   }
 }
