@@ -41,4 +41,16 @@ describe('Testando rota de Login', () => {
       res.body.should.have.property('message')
     })
   })
+  it('Deve retornar status 200 com o token e o usuário', () => {
+    (User.findOne as sinon.SinonStub).resolves(true);
+    const user = { email: 'test@test.com', password: '123456' };
+    chai.request(app)
+    .post('login')
+    .send(user)
+    .end((_err, res) => {
+      res.should.have.status(200);
+      res.body.should.have.property('user')
+      res.body.should.have.property('token')
+    })
+  })
 });
