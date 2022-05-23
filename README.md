@@ -18,10 +18,10 @@ Caso queira ver a aplicação no navegador, rode o comando `npm run compose:up` 
 
 Para logar, você pode usar uma conta com permissões de admin:
 
-email: admin@admin.com
-password: secret_admin
+email: admin@admin.com <br />
+password: secret_admin <br />
 
 Ou com uma conta simples de usuário:
 
-email: user@user.com
-password: secret_user
+email: user@user.com <br />
+password: secret_user <br />
